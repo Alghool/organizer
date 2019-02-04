@@ -26,7 +26,6 @@
 
 Route::group(['middleware' => ['web']], function () {
     //
-    Route::get('/', function () {
-        return view('homepage');
-    });
+    Route::get('/', ['as'=>'homepage', 'uses'=>'main_controller@homePage']);
+    Route::post('/addTask/', ['as'=>'addTask', 'uses'=>'Task_Controller@add']);
 });

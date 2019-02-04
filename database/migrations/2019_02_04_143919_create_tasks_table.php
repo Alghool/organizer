@@ -16,7 +16,7 @@ class CreateTasksTable extends Migration
             $table->increments('id');
             $table->string('title');
             $table->text('body');
-            $table->integer('list_id');
+            $table->integer('group_id');
             $table->boolean('done')->default(0)->index();
             $table->dateTime('due_date');
             $table->integer('estimated_time');
