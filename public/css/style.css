@@ -16,3 +16,7 @@
 .active{
     color: yellow;
 }
+
+.delete-icon{
+    color: red;
+}

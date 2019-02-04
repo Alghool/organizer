@@ -15,4 +15,9 @@ class Task_Controller extends Controller
         $task->save();
         return redirect()->route('homepage');
     }
+
+    public function delete(Request $request){
+        Task::destroy($request->input('id'));
+        return redirect()->route('homepage');
+    }
 }

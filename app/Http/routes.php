@@ -28,4 +28,5 @@ Route::group(['middleware' => ['web']], function () {
     //
     Route::get('/', ['as'=>'homepage', 'uses'=>'main_controller@homePage']);
     Route::post('/addTask/', ['as'=>'addTask', 'uses'=>'Task_Controller@add']);
+    Route::get('/deleteTask/', ['as'=>'deleteTask', 'uses'=>'Task_Controller@delete']);
 });

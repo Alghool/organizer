@@ -23,7 +23,7 @@
     </div>
     <ul>
         @foreach ($tasks as $task)
-            <li>{{ $task->title }}</li>
+            <li>{{ $task->title }} <a href="{{route('deleteTask', ['id' => $task->id])}}" class="delete-icon"><i class="fas fa-trash-alt" ></i></a></li>
         @endforeach
     </ul>
 @endsection
