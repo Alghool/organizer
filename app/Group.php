@@ -9,6 +9,6 @@ class Group extends Model
     //
 
     public function tasks(){
-        $this->hasMany('app/task');
+       return $this->hasMany('App\task');
     }
 }

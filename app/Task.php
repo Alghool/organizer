@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Task extends Model
 {
-    //
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     public function group(){
-        $this->hasOne('app/group');
+        return $this->hasOne('app/group');
     }
 }

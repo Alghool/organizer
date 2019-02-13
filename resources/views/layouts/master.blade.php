@@ -15,12 +15,25 @@
         <div class="row">
             <div id="sidebar" class="col-md-4">
                 @section('sidebar')
-                    This is the master sidebar.
+                    <div class="adding-form">
+                        <form action="{{route('addGroup')}}" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="text" name="title" id="title" value="" placeholder="new group">
+                            <button type="submit" class="btn">add</button>
+                        </form>
+                    </div>
                 @show
             </div>
             <div id="main-container" class="col-md-8">
                 @section('content')
-                    This is the main content.
+                    <div class="adding-form">
+                        <form action="{{route('addTask')}}" method="post">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                            <input type="hidden" name="group" id="group" value="{{$active}}">
+                            <input type="text" name="title" id="title" value="" placeholder="new task">
+                            <button type="submit" class="btn">add</button>
+                        </form>
+                    </div>
                 @show
             </div>
         </div>

@@ -20,3 +20,12 @@
 .delete-icon{
     color: red;
 }
+
+.check-icon{
+    color: green;
+}
+
+.done{
+    color: #9d9d9d;
+    text-decoration-line: line-through;
+}

@@ -12,10 +12,10 @@ class Main_Controller extends Controller
     //
 
     function homePage(){
+//        return phpinfo();
         $data['active'] = 0;
         $data['groups'] = Group::all();
         $data['tasks'] = Task::all();
-
         return view('homepage', $data);
     }
 }

@@ -5,25 +5,30 @@
 @section('sidebar')
     @parent
     <ul>
-        <li class="{{ ($active == 0)? 'active':''}}">inbox</li>
+        <a href="{{route('homepage')}}">
+            <li class="{{ ($active == 0)? 'active':''}}">inbox</li>
+        </a>
         @foreach ($groups as $group)
-            <li class="{{ ($active == $group->id)? 'active':''}}">{{$group->id}}: {{ $group->title }}</li>
+            <li class="{{ ($active == $group->id)? 'active':''}}">
+                <a href="{{route('openGroup',['id' =>$group->id ])}}">
+                    {{$group->id}}: {{ $group->title }}
+                </a>
+            </li>
         @endforeach
     </ul>
 @endsection
 
 @section('content')
-    <div class="adding-form">
-        <form action="{{route('addTask')}}" method="post">
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-            <input type="hidden" name="group" id="group" value="{{$active}}">
-            <input type="text" name="title" id="title" value="">
-            <button type="submit" class="btn">add</button>
-        </form>
-    </div>
+    @parent
+
     <ul>
         @foreach ($tasks as $task)
-            <li>{{ $task->title }} <a href="{{route('deleteTask', ['id' => $task->id])}}" class="delete-icon"><i class="fas fa-trash-alt" ></i></a></li>
+            <li class="{{($task->done)? 'done': ''}}">
+                <a href="{{route('doneTask', ['id' => $task->id])}}" class="check-icon"><i class="fas fa-check" ></i></a>
+                {{ $task->title }}
+                <a href="{{route('deleteTask', ['id' => $task->id])}}" class="delete-icon"><i class="fas fa-trash-alt" ></i>
+                </a>
+            </li>
         @endforeach
     </ul>
 @endsection

@@ -1,5 +1,5 @@
 <?php
-
+use App\Task_Controller;
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -29,4 +29,17 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/', ['as'=>'homepage', 'uses'=>'main_controller@homePage']);
     Route::post('/addTask/', ['as'=>'addTask', 'uses'=>'Task_Controller@add']);
     Route::get('/deleteTask/', ['as'=>'deleteTask', 'uses'=>'Task_Controller@delete']);
+    Route::get('/doneTask/', ['as'=>'doneTask', 'uses'=>'Task_Controller@setDone']);
+    Route::get('/group/', ['as'=>'openGroup', 'uses'=>'Group_Controller@openGroup']);
+    Route::post('/addGroup/', ['as'=>'addGroup', 'uses'=>'Group_Controller@add']);
+
+
+    route::any('/{controller}/{method?}/{params?}',function($controller, $methed = 'index', $params = null){
+        if(isset($params)){
+            $params = explode('/', $params);
+        }else{
+            $params = array();
+        }
+        return App::call('App\\http\\controllers\\'.$controller.'@'.$methed, $params);
+    })->where('params', '.*');
 });
