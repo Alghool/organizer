@@ -35,6 +35,19 @@
                 @show
             </div>
         </div>
+        <div class="msg-wrapper">
+            @if(count($errors))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>
+                                {{ $error }} <a class="close-icon" onclick="removeMsg(this)"><i class="fas fa-times-circle"></i></a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+        </div>
     </div>
 </div>
 
@@ -43,6 +56,6 @@
         integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+    <script src="{{ asset('js/js.js') }}" type="text/javascript"></script>
 </body>
 </html>
