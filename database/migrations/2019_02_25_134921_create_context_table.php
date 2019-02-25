@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateGroupsTable extends Migration
+class CreateContextTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,10 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
+        Schema::create('Contexts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title');
-            $table->text('body');
-            $table->enum('type', ['normal', 'super', 'smart', 'project']);
-            $table->integer('group_id');
+            $table->integer('context_id');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ class CreateGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('groups');
+        Schema::drop('Contexts');
     }
 }

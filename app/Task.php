@@ -13,4 +13,8 @@ class Task extends Model
     public function group(){
         return $this->hasOne('app/group');
     }
+
+    public function contexts(){
+        return $this->morphToMany('App\context', 'contextable');
+    }
 }
