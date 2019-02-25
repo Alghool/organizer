@@ -14,14 +14,7 @@
     <div class="container app-wrapper">
         <div class="row">
             <div id="sidebar" class="col-md-4">
-                @section('sidebar')
-                    <div class="adding-form">
-                        {!! Form::open(['url' => 'addGroup']) !!}
-                            {!! Form::text('title',null, ['placeholder' => 'new group']); !!}
-                            {!! Form::submit('add') !!}
-                        {!! Form::close() !!}
-                    </div>
-                @show
+                @include('partials.main_list')
             </div>
             <div id="main-container" class="col-md-8">
                 @section('content')

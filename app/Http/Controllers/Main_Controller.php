@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Context;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Group;
@@ -13,8 +14,7 @@ class Main_Controller extends Controller
 
     function homePage(){
 //        return phpinfo();
-        $data['active'] = 0;
-        $data['groups'] = Group::all();
+        $data['active'] = 2;
         $data['tasks'] = Task::all();
         return view('homepage', $data);
     }

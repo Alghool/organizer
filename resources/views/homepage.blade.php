@@ -2,21 +2,6 @@
 
 @section('title', 'Homepage')
 
-@section('sidebar')
-    @parent
-    <ul>
-        <a href="{{route('homepage')}}">
-            <li class="{{ ($active == 0)? 'active':''}}">inbox</li>
-        </a>
-        @foreach ($groups as $group)
-            <li class="{{ ($active == $group->id)? 'active':''}}">
-                <a href="{{route('openGroup',['id' =>$group->id ])}}">
-                    {{$group->id}}: {{ $group->title }}
-                </a>
-            </li>
-        @endforeach
-    </ul>
-@endsection
 
 @section('content')
     @parent

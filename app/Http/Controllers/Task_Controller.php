@@ -9,10 +9,17 @@ use App\Task;
 
 class Task_Controller extends Controller
 {
+    function homePage(){
+        $data['active'] = 'inbox';
+        $data['tasks'] = Task::all();
+        return view('homepage', $data);
+    }
+
+
     public function add(TaskRequest $request){
         $task = new Task();
         $task->title = $request->input('title');
-        $task->group_id = $request->input('group');
+        $task->group_id = is_int($request->input('group'))?$request->input('group'):0;
         $task->save();
         return redirect()->route('openGroup', ['id' => $task->group_id]);
     }

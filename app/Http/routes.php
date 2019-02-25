@@ -26,7 +26,8 @@ use App\Task_Controller;
 
 Route::group(['middleware' => ['web']], function () {
     //
-    Route::get('/', ['as'=>'homepage', 'uses'=>'main_controller@homePage']);
+    Route::get('/', ['as'=>'homepage', 'uses'=>'Task_Controller@homePage']);
+    Route::get('/allTasks/', ['as'=>'allTasks', 'uses'=>'Task_Controller@homePage']);
     Route::post('/addTask/', ['as'=>'addTask', 'uses'=>'Task_Controller@add']);
     Route::get('/deleteTask/', ['as'=>'deleteTask', 'uses'=>'Task_Controller@delete']);
     Route::get('/doneTask/', ['as'=>'doneTask', 'uses'=>'Task_Controller@setDone']);
