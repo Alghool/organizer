@@ -9,11 +9,13 @@ class Task extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
+    private  static $smartAssigns = ['#' => 'context', '$' => 'group', '/h' => 'hour', '/m' => 'menutes' , '/p' => 'due_date'];
+
+
 
     public function group(){
         return $this->hasOne('app/group');
     }
-
     public function contexts(){
         return $this->morphToMany('App\context', 'contextable');
     }

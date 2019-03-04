@@ -13,7 +13,11 @@ class Layout_Controller extends Controller
 {
 
     public function mainList(View $view){
-        $data['groups'] = Group::all();
+        $mainGroups = Group::where('group_id', 0)->get();
+        $data['groups'] = collect();
+        foreach ($mainGroups as $group){
+            $group->childrenList($data['groups']);
+        }
         $data['contexts'] = Context::all();
         $view->with($data);
     }

@@ -1,5 +1,5 @@
 <?php
-use App\Task_Controller;
+
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -23,6 +23,20 @@ use App\Task_Controller;
 | kernel and includes session state, CSRF protection, and more.
 |
 */
+
+Route::get('test/{id}', function($id){
+   $koko = App\Group::with( 'myFamily','familyRoot' )->find($id);
+
+    $koko->getRoot();
+
+    $children = collect();
+    $koko->childrenList($children);
+
+   foreach ($children as $child){
+       echo "<pre> hi my name is {$child->title} and my show lvl is {$child->show_lvl} </pre>";
+   }
+
+});
 
 Route::group(['middleware' => ['web']], function () {
     //

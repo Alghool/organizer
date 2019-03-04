@@ -1,7 +1,7 @@
 <div id="main-list">
     <div class="adding-form">
         {!! Form::open(['url' => 'addGroup']) !!}
-        {!! Form::text('title',null, ['placeholder' => 'new group']); !!}
+        {!! Form::text('title',null, ['placeholder' => 'new root list']); !!}
         {!! Form::submit('add') !!}
         {!! Form::close() !!}
     </div>
@@ -16,9 +16,9 @@
     <h3>lists:</h3>
     <ul>
         @foreach ($groups as $group)
-            <li class="{{ ($active == $group->id)? 'active':''}}">
+            <li style="margin-left: {{$group->show_lvl * 10}}px" class="{{ ($active == $group->id)? 'active':''}}">
                 <a href="{{route('openGroup',['id' =>$group->id ])}}">
-                    {{$group->id}}: {{ $group->title }}
+                    {{$group->id}}: {{ $group->root }}
                 </a>
             </li>
         @endforeach

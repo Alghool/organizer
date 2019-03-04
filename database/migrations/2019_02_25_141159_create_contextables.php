@@ -12,7 +12,7 @@ class CreateContextables extends Migration
      */
     public function up()
     {
-        Schema::create('Contextable', function (Blueprint $table) {
+        Schema::create('contextables', function (Blueprint $table) {
             $table->integer('context_id');
             $table->integer('contextable_id');
             $table->string('contextable_type');
@@ -26,6 +26,6 @@ class CreateContextables extends Migration
      */
     public function down()
     {
-        Schema::drop('Contextable');
+        Schema::drop('contextables');
     }
 }
