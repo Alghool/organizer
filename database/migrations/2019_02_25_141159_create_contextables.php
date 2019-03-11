@@ -13,6 +13,7 @@ class CreateContextables extends Migration
     public function up()
     {
         Schema::create('contextables', function (Blueprint $table) {
+            $table->increments('id');
             $table->integer('context_id');
             $table->integer('contextable_id');
             $table->string('contextable_type');

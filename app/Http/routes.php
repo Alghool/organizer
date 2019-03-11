@@ -25,16 +25,6 @@
 */
 
 Route::get('test/{id}', function($id){
-   $koko = App\Group::with( 'myFamily','familyRoot' )->find($id);
-
-    $koko->getRoot();
-
-    $children = collect();
-    $koko->childrenList($children);
-
-   foreach ($children as $child){
-       echo "<pre> hi my name is {$child->title} and my show lvl is {$child->show_lvl} </pre>";
-   }
 
 });
 
@@ -47,7 +37,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/doneTask/', ['as'=>'doneTask', 'uses'=>'Task_Controller@setDone']);
     Route::get('/group/', ['as'=>'openGroup', 'uses'=>'Group_Controller@openGroup']);
     Route::post('/addGroup/', ['as'=>'addGroup', 'uses'=>'Group_Controller@add']);
-
 
     route::any('/{controller}/{method?}/{params?}',function($controller, $methed = 'index', $params = null){
         if(isset($params)){

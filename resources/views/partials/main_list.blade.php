@@ -18,7 +18,7 @@
         @foreach ($groups as $group)
             <li style="margin-left: {{$group->show_lvl * 10}}px" class="{{ ($active == $group->id)? 'active':''}}">
                 <a href="{{route('openGroup',['id' =>$group->id ])}}">
-                    {{$group->id}}: {{ $group->root }}
+                    {{$group->id}}: {{ $group->title }}
                 </a>
             </li>
         @endforeach
@@ -26,9 +26,9 @@
     <h3>contexts:</h3>
     <ul>
         @foreach ($contexts as $context)
-            <li class="{{ ($active == $group->id)? 'active':''}}">
-                <a href="{{route('openGroup',['id' =>$group->id ])}}">
-                    {{$group->id}}: {{ $group->title }}
+            <li style="margin-left: {{$context->show_lvl * 10}}px" class="">
+                <a href="{{route('openGroup',['id' =>$context->id ])}}">
+                    {{$context->id}}: {{ $context->title }}
                 </a>
             </li>
         @endforeach

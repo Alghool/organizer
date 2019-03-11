@@ -12,11 +12,16 @@ class Group_Controller extends Controller
 {
     //
     public function openGroup(Request $request){
-        $group = Group::find($request->input('id'));
+        $group = Group::with('myFamily')->find($request->input('id'));
         $data['active'] = $request->input('id');
-        $data['groups'] = Group::all();
         if($group){
-            $data['tasks'] = $group->tasks;
+            $subGroups = collect();
+            $group->childrenList($subGroups);
+            $groupsIDs = array();
+            foreach ($subGroups as $group){
+                $groupsIDs[] = $group['id'];
+            }
+            $data['tasks'] = Task::whereIn('group_id', $groupsIDs)->get();
         }else{
             $data['tasks'] = Task::all();
         }

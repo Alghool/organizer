@@ -8,13 +8,36 @@ class Group extends Model
 {
     protected $appends = ['show_lvl'=>0];
 
+    public static function setSmartGroup($value){
+        $groups = explode('/', $value);
+        $lastGroup = collect();
+        $lastGroup->id = 0;
+        foreach ($groups as $group){
+            $groupName = str_replace('_', ' ' ,$group);
+            $inDB = Group::where('title', $groupName)->where('group_id', $lastGroup->id)->first();
+
+            if(count($inDB)){
+                $lastGroup = $inDB;
+            }else{
+                $newGroup = new Group;
+                $newGroup->title = $groupName;
+                $newGroup->group_id = $lastGroup->id;
+                $newGroup->save();
+                $lastGroup = $newGroup;
+            }
+        }
+        return $lastGroup;
+    }
+
+
     public function getRootAttribute(){
         $currentObj = $this;
         $root = array();
         $root[] = $currentObj->title;
-        while($currentObj->familyRoot){
-            $currentObj = $currentObj->familyRoot;
+        $currentObj = $currentObj->familyRoot;
+        while($currentObj){
             $root[] = $currentObj->title;
+            $currentObj = $currentObj->familyRoot;
         }
         $root = implode('\\',array_reverse($root));
 
@@ -38,6 +61,7 @@ class Group extends Model
     public function parent(){
         return $this->belongsTo('App\group', 'group_id');
     }
+
     public function children(){
         return $this->hasMany('App\group');
     }

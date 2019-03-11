@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\taskRequest;
 use App\Task;
+use App\Group;
+use App\Context;
 
 class Task_Controller extends Controller
 {
@@ -23,9 +25,18 @@ class Task_Controller extends Controller
         $task = new Task();
         $smartValues = Task_Controller::smartInserting($request->input('title'));
         $task->title = $smartValues['title'];
-        //todo: do some thing here please
-        $task->group_id = is_int($request->input('group'))?$request->input('group'):0;
+        if(isset($smartValues['group'])){
+            $myGroup = Group::setSmartGroup($smartValues['group']);
+            $task->group_id = $myGroup->id;
+        }else{
+            $task->group_id = is_int($request->input('group'))?$request->input('group'):0;
+        }
         $task->save();
+        if(isset($smartValues['context'])){
+            $myContext = Context::setSmartContext($smartValues['context']);
+            $task->contexts()->saveMany($myContext);
+        }
+
         return redirect()->route('openGroup', ['id' => $task->group_id]);
     }
 
@@ -50,7 +61,7 @@ class Task_Controller extends Controller
             $startsAt = strpos($value,$assign);
             if($startsAt){
                 $endsAt = strpos($value,' ', $startsAt);
-                $assignValue = substr($value, $startsAt, $endsAt);
+                $assignValue = trim(substr($value, $startsAt, $endsAt));
                 $value = str_replace($assignValue,"",$value);
                 $smartValue[$attribute] = ltrim($assignValue, $assign);
             }

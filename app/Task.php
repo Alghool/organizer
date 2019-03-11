@@ -14,7 +14,7 @@ class Task extends Model
 
 
     public function group(){
-        return $this->hasOne('app/group');
+        return $this->belongsTo('App\group');
     }
     public function contexts(){
         return $this->morphToMany('App\context', 'contextable');
