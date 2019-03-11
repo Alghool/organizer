@@ -20,6 +20,8 @@ class Group_Controller extends Controller
             $groupsIDs = array();
             foreach ($subGroups as $group){
                 $groupsIDs[] = $group['id'];
+
+
             }
             $data['tasks'] = Task::whereIn('group_id', $groupsIDs)->get();
         }else{
