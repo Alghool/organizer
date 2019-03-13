@@ -11,7 +11,7 @@ use App\Context;
 
 class Task_Controller extends Controller
 {
-    private  static $smartAssigns = ['#' => 'context', '$' => 'group', '/h' => 'hour', '/m' => 'menutes' , '/p' => 'due_date'];
+    private  static $smartAssigns = ['#' => 'context', '$' => 'group', '/h' => 'hours', '/m' => 'minutes' , '/p' => 'due'];
 
 
     function homePage(){
@@ -30,6 +30,15 @@ class Task_Controller extends Controller
             $task->group_id = $myGroup->id;
         }else{
             $task->group_id = is_int($request->input('group'))?$request->input('group'):0;
+        }
+        if(isset($smartValues['hours'])){
+            $task->estimated = ((int) $smartValues['hours']) * 60;
+        }
+        if(isset($smartValues['minutes'])){
+            $task->estimated = (int)$smartValues['minutes'];
+        }
+        if(isset($smartValues['due'])){
+            $task->due = $smartValues['due'];
         }
         $task->save();
         if(isset($smartValues['context'])){
@@ -61,12 +70,12 @@ class Task_Controller extends Controller
             $startsAt = strpos($value,$assign);
             if($startsAt){
                 $endsAt = strpos($value,' ', $startsAt);
-                $assignValue = trim(substr($value, $startsAt, $endsAt));
+                $assignValue = trim(substr($value, $startsAt, $endsAt - $startsAt));
                 $value = str_replace($assignValue,"",$value);
                 $smartValue[$attribute] = ltrim($assignValue, $assign);
             }
         }
-        $smartValue['title'] = $value;
+        $smartValue['title'] = trim($value);
         return $smartValue;
     }
 
