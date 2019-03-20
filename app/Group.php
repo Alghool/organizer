@@ -4,9 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Group extends Model
+class Group extends Category
 {
-    protected $appends = ['show_lvl'=>0];
 
     public static function setSmartGroup($value){
         $groups = explode('/', $value);
@@ -30,29 +29,9 @@ class Group extends Model
     }
 
 
-    public function getRootAttribute(){
-        $currentObj = $this;
-        $root = array();
-        $root[] = $currentObj->title;
-        $currentObj = $currentObj->familyRoot;
-        while($currentObj){
-            $root[] = $currentObj->title;
-            $currentObj = $currentObj->familyRoot;
-        }
-        $root = implode('\\',array_reverse($root));
 
-        return $root;
-    }
 
-    function childrenList(&$list, $parent = null){
-        $parent = ($parent)? $parent : $this;
-        $list->push($parent);
-        $children = $parent->myFamily;
-        foreach ($children as $child){
-            $child->show_lvl = $parent->show_lvl + 1;
-            $this->childrenList($list,$child );
-        }
-    }
+
 
     public function tasks(){
        return $this->hasMany('App\task');

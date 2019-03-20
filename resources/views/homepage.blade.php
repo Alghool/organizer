@@ -26,7 +26,7 @@
                         <span class=""><i class="fas fa-clock"></i>{{$task->estimated_time}}</span>
                     @endif
                     &nbsp; &nbsp;
-                    @if($task->due_date)
+                    @if($task->due_date != 0)
                         <span class=""><i class="fas fa-calendar-alt"></i>{{$task->due_date}}</span>
                     @endif
                     <a href="{{route('deleteTask', ['id' => $task->id])}}" class="delete-icon pull-right"><i class="fas fa-trash-alt" ></i> </a>

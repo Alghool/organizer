@@ -28,8 +28,14 @@ Route::get('test/{id}', function($id){
 
 });
 
+
 Route::group(['middleware' => ['web']], function () {
-    //
+    Route::auth();
+});
+
+Route::group(['middleware' => ['userArea']], function () {
+
+
     Route::get('/', ['as'=>'homepage', 'uses'=>'Task_Controller@homePage']);
     Route::get('/allTasks/', ['as'=>'allTasks', 'uses'=>'Task_Controller@homePage']);
     Route::post('/addTask/', ['as'=>'addTask', 'uses'=>'Task_Controller@add']);
@@ -38,12 +44,14 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/group/', ['as'=>'openGroup', 'uses'=>'Group_Controller@openGroup']);
     Route::post('/addGroup/', ['as'=>'addGroup', 'uses'=>'Group_Controller@add']);
 
-    route::any('/{controller}/{method?}/{params?}',function($controller, $methed = 'index', $params = null){
-        if(isset($params)){
-            $params = explode('/', $params);
-        }else{
-            $params = array();
-        }
-        return App::call('App\\http\\controllers\\'.$controller.'@'.$methed, $params);
-    })->where('params', '.*');
 });
+
+
+//route::any('/{controller}/{method?}/{params?}',function($controller, $methed = 'index', $params = null){
+//    if(isset($params)){
+//        $params = explode('/', $params);
+//    }else{
+//        $params = array();
+//    }
+//    return App::call('App\\http\\controllers\\'.$controller.'@'.$methed, $params);
+//})->where('params', '.*');
