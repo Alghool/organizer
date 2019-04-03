@@ -3,10 +3,21 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Http\Traits\UserScopeTrait;
+use Illuminate\Support\Facades\Auth;
 
 class Category extends Model
 {
     protected $appends = ['show_lvl' => 0];
+    use UserScopeTrait;
+
+    public function __construct(array $attributes = array())
+    {
+        if(Auth::user()){
+            $this->user_id = Auth::id();
+        }
+        parent::__construct($attributes);
+    }
 
     public function getRootAttribute(){
         $currentObj = $this;
@@ -32,6 +43,8 @@ class Category extends Model
         }
     }
 
-
+    public function user(){
+        return $this->belongsTo('App\user');
+    }
 
 }
